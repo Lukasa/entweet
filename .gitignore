@@ -1,0 +1,3 @@
+.entweet.rc
+*.pyc
+env/
