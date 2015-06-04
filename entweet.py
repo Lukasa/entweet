@@ -113,7 +113,7 @@ def ungpgify(message):
     g = gnupg.GPG()
     d = g.decrypt(message)
 
-    if not d:
+    if not d.valid:
         raise ValueError("Invalid data!")
 
     if d.username:
