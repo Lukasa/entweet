@@ -34,6 +34,30 @@ def generate_image_map(chars):
     return {c: get_char_image(image, i, 0) for i, c in enumerate(chars)}
 image_map = generate_image_map(chars)
 
+def rmsdiff(diff):
+    h = diff.histogram()
+
+    # calculate rms
+    return math.sqrt(reduce(operator.add,
+        map(lambda h, i: h*((i or 0)**2), h, range(256))
+    ) / (float(char_width) * char_height))
+
+def get_image_char(image):
+    diffs = {}
+    for char, char_image in image_map.items():
+        diff = ImageChops.difference(image, char_image)
+        if diff.getbbox() is None:
+            return char
+        diffs[char] = diff
+
+    min_rms = 10**6
+    closest_char = ''
+    for char, diff in diffs.items():
+        rms = rmsdiff(diff)
+        if rms < min_rms:
+            min_rms = rms
+            closest_char = char
+    return closest_char
 
 def encode(message):
     image = Image.new('RGB', (10000, 10000))
@@ -67,16 +91,8 @@ def decode(text_image):
     for row in range(rows):
         line = ''
         for col in range(cols):
-            found_char = ''
             image = get_char_image(text_image, col, row)
-            # image.save('chars/{}x{}.png'.format(col, row), 'PNG')
-            for char, char_image in image_map.items():
-                diff = ImageChops.difference(image, char_image)
-                if diff.getbbox() is None:
-                    found_char = char
-                    break
-            line += found_char
-
+            line += get_image_char(image)
         lines.append(line.strip())
 
     return '\n'.join(lines)
