@@ -189,6 +189,23 @@ def sign():
     encode_tweet(s, message)
     click.echo("Posted tweet")
 
+
+@cli.command()
+@click.argument('tweet_id')
+def decrypt(tweet_id):
+    try:
+        s = build_twitter_session()
+    except KeyError:
+        click.echo(
+            "Missing environment variables: make sure you have set all of "
+            "ENTWEET_CLIENT_KEY, ENTWEET_CLIENT_SECRET, "
+            "ENTWEET_RESOURCE_OWNER_KEY, and ENTWEET_RESOURCE_OWNER_SECRET."
+        )
+        return
+
+    click.echo(decode_tweet(s, tweet_id))
+
+
 cli.add_command(sign)
 
 if __name__ == '__main__':
