@@ -3,10 +3,12 @@ import getpass
 import gnupg
 import math
 import operator
+import os
 import sys
 import requests
 from cStringIO import StringIO
 from PIL import Image, ImageFont, ImageDraw, ImageChops
+from requests_oauthlib import OAuth1Session
 
 font_size = 24
 padding = 5
@@ -14,6 +16,15 @@ font = ImageFont.truetype('Inconsolata-Regular.ttf', size=font_size)
 char_width, char_height = font.getsize('A')
 char_height += padding
 chars = ''.join([chr(o) for o in range(32, 127)])
+
+
+def build_twitter_session():
+    return OAuth1Session(
+        os.environ['ENTWEET_CLIENT_KEY'],
+        os.environ['ENTWEET_CLIENT_SECRET'],
+        os.environ['ENTWEET_RESOURCE_OWNER_KEY'],
+        os.environ['ENTWEET_RESOURCE_OWNER_SECRET'],
+    )
 
 
 def get_char_image(image, col, row):
