@@ -68,4 +68,6 @@ being Andrey Petrov, David Gouldin, Cory Benfield, Kristian Glass,
 Peter Inglesby, Charles Denton, and George Hickman. Don't blame them, this
 isn't their fault.
 
-Except Andrey, he came up with the image recognition stuff. Blame him.
+Except Andrey, he `posted this tweet`_ before it was cool. Blame him.
+
+.. _posted this tweet: https://twitter.com/shazow/status/605748307688890368
