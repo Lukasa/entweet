@@ -13,7 +13,10 @@ from requests_oauthlib import OAuth1Session
 
 font_size = 24
 padding = 5
-font = ImageFont.truetype('Inconsolata-Regular.ttf', size=font_size)
+font = ImageFont.truetype(
+    os.path.join(os.path.dirname(__file__), 'Inconsolata-Regular.ttf'),
+    size=font_size
+)
 char_width, char_height = font.getsize('A')
 char_height += padding
 chars = ''.join([chr(o) for o in range(32, 127)])
