@@ -65,5 +65,7 @@ David Gouldin and Cory Benfield.
 
 This **awesome** idea is the product of DjangoCon EU, with the core idea makers
 being Andrey Petrov, David Gouldin, Cory Benfield, Kristian Glass,
-Peter Inglesby, and George Hickman. Don't blame them, this isn't their fault.
+Peter Inglesby, Charles Denton, and George Hickman. Don't blame them, this
+isn't their fault.
+
 Except Andrey, he came up with the image recognition stuff. Blame him.
