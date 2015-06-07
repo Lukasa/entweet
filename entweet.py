@@ -5,6 +5,7 @@ import math
 import operator
 import os
 import sys
+import click
 import requests
 from cStringIO import StringIO
 from PIL import Image, ImageFont, ImageDraw, ImageChops
@@ -166,3 +167,30 @@ def decode_tweet(twitter_session, tweet_id):
     message = decode(image)
     print message
     return ungpgify(message)
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+def sign():
+    try:
+        s = build_twitter_session()
+    except KeyError:
+        click.echo(
+            "Missing environment variables: make sure you have set all of "
+            "ENTWEET_CLIENT_KEY, ENTWEET_CLIENT_SECRET, "
+            "ENTWEET_RESOURCE_OWNER_KEY, and ENTWEET_RESOURCE_OWNER_SECRET."
+        )
+        return
+
+    message = raw_input("Please type your message: ")
+    encode_tweet(s, message)
+    click.echo("Posted tweet")
+
+cli.add_command(sign)
+
+if __name__ == '__main__':
+    cli()
