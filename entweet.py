@@ -165,7 +165,6 @@ def decode_tweet(twitter_session, tweet_id):
     buff.seek(0)
     image = Image.open(buff)
     message = decode(image)
-    print message
     return ungpgify(message)
 
 
